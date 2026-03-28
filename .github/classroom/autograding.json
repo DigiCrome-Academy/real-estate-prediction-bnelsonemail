@@ -1,0 +1,134 @@
+{
+  "tests": [
+    {
+      "name": "Phase 1 - Data Preprocessing",
+      "setup": "pip install -r requirements.txt",
+      "run": "pytest tests/test_phase1/test_data_preprocessing.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 10
+    },
+    {
+      "name": "Phase 1 - Linear Models",
+      "setup": "",
+      "run": "pytest tests/test_phase1/test_linear_models.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 8
+    },
+    {
+      "name": "Phase 1 - Tree Models",
+      "setup": "",
+      "run": "pytest tests/test_phase1/test_tree_models.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 180,
+      "points": 8
+    },
+    {
+      "name": "Phase 1 - Regression Diagnostics",
+      "setup": "",
+      "run": "pytest tests/test_phase1/test_regression_diagnostics.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 9
+    },
+    {
+      "name": "Phase 2 - K-Means Clustering",
+      "setup": "",
+      "run": "pytest tests/test_phase2/test_kmeans.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 7
+    },
+    {
+      "name": "Phase 2 - Hierarchical Clustering",
+      "setup": "",
+      "run": "pytest tests/test_phase2/test_hierarchical.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 5
+    },
+    {
+      "name": "Phase 2 - DBSCAN",
+      "setup": "",
+      "run": "pytest tests/test_phase2/test_dbscan.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 5
+    },
+    {
+      "name": "Phase 2 - PCA",
+      "setup": "",
+      "run": "pytest tests/test_phase2/test_pca.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 8
+    },
+    {
+      "name": "Phase 3 - Content-Based Filtering",
+      "setup": "",
+      "run": "pytest tests/test_phase3/test_content_based.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 8
+    },
+    {
+      "name": "Phase 3 - Collaborative Filtering",
+      "setup": "",
+      "run": "pytest tests/test_phase3/test_collaborative.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 8
+    },
+    {
+      "name": "Phase 3 - Hybrid Recommendation",
+      "setup": "",
+      "run": "pytest tests/test_phase3/test_hybrid.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 120,
+      "points": 9
+    },
+    {
+      "name": "Phase 4 - Voting Ensemble",
+      "setup": "",
+      "run": "pytest tests/test_phase4/test_voting_ensemble.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 180,
+      "points": 8
+    },
+    {
+      "name": "Phase 4 - Stacking Ensemble",
+      "setup": "",
+      "run": "pytest tests/test_phase4/test_stacking_ensemble.py -v --tb=short",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 180,
+      "points": 7
+    }
+  ]
+}

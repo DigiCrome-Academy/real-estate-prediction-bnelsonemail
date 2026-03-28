@@ -1,0 +1,257 @@
+name: Autograding
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  # ──────────────────────────────────────────────
+  # Phase 1: Regression Modeling (25%)
+  # ──────────────────────────────────────────────
+  phase1-data-preprocessing:
+    name: "Phase 1 - Data Preprocessing"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run data preprocessing tests
+        run: pytest tests/test_phase1/test_data_preprocessing.py -v --tb=short
+        
+  phase1-linear-models:
+    name: "Phase 1 - Linear Models"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run linear model tests
+        run: pytest tests/test_phase1/test_linear_models.py -v --tb=short
+
+  phase1-tree-models:
+    name: "Phase 1 - Tree Models"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run tree model tests
+        run: pytest tests/test_phase1/test_tree_models.py -v --tb=short
+
+  phase1-diagnostics:
+    name: "Phase 1 - Regression Diagnostics"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run regression diagnostics tests
+        run: pytest tests/test_phase1/test_regression_diagnostics.py -v --tb=short
+
+  # ──────────────────────────────────────────────
+  # Phase 2: Clustering & PCA (20%)
+  # ──────────────────────────────────────────────
+  phase2-kmeans:
+    name: "Phase 2 - K-Means Clustering"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run K-Means tests
+        run: pytest tests/test_phase2/test_kmeans.py -v --tb=short
+
+  phase2-hierarchical:
+    name: "Phase 2 - Hierarchical Clustering"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run hierarchical clustering tests
+        run: pytest tests/test_phase2/test_hierarchical.py -v --tb=short
+
+  phase2-dbscan:
+    name: "Phase 2 - DBSCAN Clustering"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run DBSCAN tests
+        run: pytest tests/test_phase2/test_dbscan.py -v --tb=short
+
+  phase2-pca:
+    name: "Phase 2 - PCA"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run PCA tests
+        run: pytest tests/test_phase2/test_pca.py -v --tb=short
+
+  # ──────────────────────────────────────────────
+  # Phase 3: Recommendation System (20%)
+  # ──────────────────────────────────────────────
+  phase3-content-based:
+    name: "Phase 3 - Content-Based Filtering"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run content-based filtering tests
+        run: pytest tests/test_phase3/test_content_based.py -v --tb=short
+
+  phase3-collaborative:
+    name: "Phase 3 - Collaborative Filtering"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run collaborative filtering tests
+        run: pytest tests/test_phase3/test_collaborative.py -v --tb=short
+
+  phase3-hybrid:
+    name: "Phase 3 - Hybrid Recommendation"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run hybrid recommendation tests
+        run: pytest tests/test_phase3/test_hybrid.py -v --tb=short
+
+  # ──────────────────────────────────────────────
+  # Phase 4: Ensemble Methods (10%)
+  # ──────────────────────────────────────────────
+  phase4-voting:
+    name: "Phase 4 - Voting Ensemble"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run voting ensemble tests
+        run: pytest tests/test_phase4/test_voting_ensemble.py -v --tb=short
+
+  phase4-stacking:
+    name: "Phase 4 - Stacking Ensemble"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run stacking ensemble tests
+        run: pytest tests/test_phase4/test_stacking_ensemble.py -v --tb=short
+
+  # ──────────────────────────────────────────────
+  # Summary Report
+  # ──────────────────────────────────────────────
+  grading-summary:
+    name: "Grading Summary"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs:
+      - phase1-data-preprocessing
+      - phase1-linear-models
+      - phase1-tree-models
+      - phase1-diagnostics
+      - phase2-kmeans
+      - phase2-hierarchical
+      - phase2-dbscan
+      - phase2-pca
+      - phase3-content-based
+      - phase3-collaborative
+      - phase3-hybrid
+      - phase4-voting
+      - phase4-stacking
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run full test suite with summary
+        run: |
+          echo "============================================"
+          echo "  REAL ESTATE PREDICTION ENGINE - GRADE REPORT"
+          echo "============================================"
+          echo ""
+          
+          total=0
+          passed=0
+          
+          for phase_dir in tests/test_phase1 tests/test_phase2 tests/test_phase3 tests/test_phase4; do
+            phase_name=$(basename $phase_dir)
+            echo "--- ${phase_name} ---"
+            if pytest "$phase_dir" -v --tb=line 2>/dev/null; then
+              echo "✅ ${phase_name}: PASSED"
+            else
+              echo "❌ ${phase_name}: SOME TESTS FAILED"
+            fi
+            echo ""
+          done
+          
+          echo "============================================"
+          echo "  DETAILED RESULTS"
+          echo "============================================"
+          pytest tests/ -v --tb=short || true
