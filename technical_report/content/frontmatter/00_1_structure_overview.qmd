@@ -1,0 +1,25 @@
+## 📋 Report Structure Overview
+
+This template guides you through writing your Customer Churn Analysis report. Each section includes instructions (shown in *italics*), required content, and suggested page lengths. Follow this structure carefully.
+
+---
+
+### Table: Report Sections, Page Length, and Weighting
+
+================================================
+# **TODO: UPDATE TABLE BELOW**
+================================================
+
+| #  | Section                              | Suggested Pages | Marks (%) |
+|----|--------------------------------------|-----------------|-----------|
+| 1  | Executive Summary                    | 1               | 5         |
+| 2  | Introduction                         | 1–2             | 10        |
+| 3  | Literature Review                    | 2–3             | 10        |
+| 4  | Data Description & Preprocessing     | 2–3             | 15        |
+| 5  | Exploratory Data Analysis (EDA)      | 2–3             | 15        |
+| 6  | Methodology & Model Development      | 3–4             | 20        |
+| 7  | Results & Evaluation                 | 2–3             | 10        |
+| 8  | Discussion                           | 1–2             | 5         |
+| 9  | Conclusions & Recommendations        | 1–2             | 5         |
+| 10 | References                           | 1–2             | 5         |
+| 11 | Appendices                           | As needed       | —         |
