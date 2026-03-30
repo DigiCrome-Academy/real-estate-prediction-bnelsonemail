@@ -1,0 +1,21 @@
+project:
+  output-dir: reports
+  render:
+    - report.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    toc: true
+    number-sections: false
+  pdf:
+    documentclass: article
+    top-level-division: section
+    toc: false
+    number-sections: false
+    margin-left: 30mm
+    margin-right: 30mm
+
+execute:
+  enabled: false

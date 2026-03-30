@@ -1,0 +1,113 @@
+{{< include content/frontmatter/00_0_cover.qmd >}}
+
+```{=latex}
+\newpage
+\tableofcontents
+\newpage
+```
+
+{{< include content/frontmatter/00_1_structure_overview.qmd >}}
+
+{{< include content/section_01/01_0_executive_summary.qmd >}}
+
+{{< include content/section_01/01_1_purpose_of_study.qmd >}}
+
+{{< include content/section_01/01_2_key_findings.qmd >}}
+
+{{< include content/section_01/01_3_recommendations.qmd >}}
+
+{{< include content/section_02/02_0_introduction.qmd >}}
+
+{{< include content/section_02/02_1_background.qmd >}}
+
+{{< include content/section_02/02_2_definitions.qmd >}}
+
+{{< include content/section_02/02_3_objectives.qmd >}}
+
+{{< include content/section_02/02_4_scope.qmd >}}
+
+{{< include content/section_02/02_5_report_structure.qmd >}}
+
+{{< include content/section_03/03_0_literature_review.qmd >}}
+
+{{< include content/section_03/03_1_industry_analysis.qmd >}}
+
+{{< include content/section_03/03_2_key_drivers.qmd >}}
+
+{{< include content/section_03/03_3_ml_approaches.qmd >}}
+
+{{< include content/section_03/03_4_gaps_justifications.qmd >}}
+
+{{< include content/section_04/04_0_data_description.qmd >}}
+
+{{< include content/section_04/04_1_dataset_overview.qmd >}}
+
+{{< include content/section_04/04_2_feature_description.qmd >}}
+
+{{< include content/section_04/04_3_data_quality.qmd >}}
+
+{{< include content/section_04/04_4_data_preprocessing.qmd >}}
+
+{{< include content/section_05/05_0_eda.qmd >}}
+
+{{< include content/section_05/05_1_univariate_analysis.qmd >}}
+
+{{< include content/section_05/05_2_bivariate_analysis.qmd >}}
+
+{{< include content/section_05/05_3_multivariate_analysis.qmd >}}
+
+{{< include content/section_05/05_4_correlation_analysis.qmd >}}
+
+{{< include content/section_05/05_5_eda_summary.qmd >}}
+
+{{< include content/section_06/06_0_methodology_model.qmd >}}
+
+{{< include content/section_06/06_1_approach_methodology.qmd >}}
+
+{{< include content/section_06/06_2_algorithms_selected.qmd >}}
+
+{{< include content/section_06/06_3_evaluate_metrics.qmd >}}
+
+{{< include content/section_06/06_4_hyperparameter_tuning.qmd >}}
+
+{{< include content/section_06/06_5_cross_validation.qmd >}}
+
+{{< include content/section_06/06_6_tools_libraries.qmd >}}
+
+{{< include content/section_06/06_7_methodology_summary.qmd >}}
+
+{{< include content/section_07/07_0_results_evaluation.qmd >}}
+
+{{< include content/section_07/07_1_model_performance_comparison.qmd >}}
+
+{{< include content/section_07/07_2_confusion_matrix.qmd >}}
+
+{{< include content/section_07/07_3_visualizations.qmd >}}
+
+{{< include content/section_07/07_4_feature_importance.qmd >}}
+
+{{< include content/section_07/07_5_results_summary.qmd >}}
+
+{{< include content/section_08/08_0_discussion.qmd >}}
+
+{{< include content/section_08/08_1_interpretation_results.qmd >}}
+
+{{< include content/section_08/08_2_connect_literature.qmd >}}
+
+{{< include content/section_08/08_3_limitations.qmd >}}
+
+{{< include content/section_08/08_4_discussion_summary.qmd >}}
+
+{{< include content/section_09/09_0_conclusions_recommendations.qmd >}}
+
+{{< include content/section_09/09_1_conclusions.qmd >}}
+
+{{< include content/section_09/09_2_recommendations.qmd >}}
+
+{{< include content/section_09/09_3_future_work.qmd >}}
+
+{{< include content/section_10/10_0_references.qmd >}}
+
+{{< include content/figures/figures.qmd >}}
+
+{{< include content/appendices/appendices.qmd >}}
