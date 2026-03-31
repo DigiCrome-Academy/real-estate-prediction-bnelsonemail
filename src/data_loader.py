@@ -55,7 +55,7 @@ def load_housing_data():
         >>> 'MedHouseVal' in df.columns
         True
     """
-    # TODO: Implement this function
+    # NOTES: Implemented this function
     # Hints:
     #   1. Use fetch_california_housing(as_frame=True)
     #   2. The target variable should be named 'MedHouseVal'
