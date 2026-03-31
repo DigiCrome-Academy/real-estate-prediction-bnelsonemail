@@ -12,9 +12,33 @@ The California Housing dataset is built into scikit-learn and contains:
 
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+# Readme asks us to download the data.  The function asks us to store as memory.  Therefore, download_data will
+# download and save the data to the data/raw folder and can be run from the cli.
+
+BASE_DIR = Path(__file__).resolve().parent  # sets current path (03_real_estate_prediction/src/)
+ROOT_DIR = BASE_DIR.parent  # sets the project root directory (03_real_estate_prediction/)
+
+def download_data():
+    """Download and save data to the local drive."""
+    data = fetch_california_housing(as_frame=True)
+    df = data.frame
+    # build data directory
+    DATA_DIR = ROOT_DIR / "data" / "raw"
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    file = DATA_DIR / 'housing.csv'
+    # save file to data directory
+    if file.is_file():
+        print("File already exists")
+    else:
+        df.to_csv(file, index=False)
+        print(f'Data has been saved to {file}')
+    return None
+
 
 
 def load_housing_data():
@@ -36,7 +60,7 @@ def load_housing_data():
     #   1. Use fetch_california_housing(as_frame=True)
     #   2. The target variable should be named 'MedHouseVal'
     #   3. Return a single DataFrame with features AND target combined
-    raise NotImplementedError("Implement load_housing_data()")
+
 
 
 def preprocess_features(df, target_col='MedHouseVal'):
