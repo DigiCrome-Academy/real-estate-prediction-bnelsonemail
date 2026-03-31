@@ -60,6 +60,9 @@ def load_housing_data():
     #   1. Use fetch_california_housing(as_frame=True)
     #   2. The target variable should be named 'MedHouseVal'
     #   3. Return a single DataFrame with features AND target combined
+    data = fetch_california_housing(as_frame=True).frame
+    return data
+
 
 
 
