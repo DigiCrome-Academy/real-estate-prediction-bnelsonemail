@@ -135,8 +135,7 @@ def split_data(X, y, test_size=0.2, random_state=42):
         >>> len(X_test) == 20
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement split_data()")
+    return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 
 def create_feature_engineering(df):
