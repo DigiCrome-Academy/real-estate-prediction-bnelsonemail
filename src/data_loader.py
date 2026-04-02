@@ -89,12 +89,28 @@ def preprocess_features(df, target_col='MedHouseVal'):
         >>> np.abs(X_scaled.mean(axis=0)).max() < 1e-10  # means ≈ 0
         True
     """
-    # TODO: Implement this function
+    # NOTES: Implement this function
     # Hints:
     #   1. Separate X (features) and y (target)
     #   2. Fit a StandardScaler on X
     #   3. Return the scaled X, y, feature names, and the scaler
-    raise NotImplementedError("Implement preprocess_features()")
+    # 1. Separate features and target
+    X = df.drop(columns=[target_col])
+    y = df[target_col]
+
+    # 2. Store feature names
+    feature_names = X.columns.tolist()
+
+    # 3. Initialize scaler
+    scaler = StandardScaler()
+
+    # 4. Fit and transform features
+    X_scaled = scaler.fit_transform(X)
+
+    # 5. Convert y to numpy array (optional but cleaner)
+    y = y.values
+
+    return X_scaled, y, feature_names, scaler
 
 
 def split_data(X, y, test_size=0.2, random_state=42):
