@@ -47,8 +47,9 @@ def build_linear_regression(X_train, y_train):
         >>> hasattr(model, 'coef_')
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement build_linear_regression()")
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    return model
 
 
 def build_ridge_regression(X_train, y_train, alpha=1.0):
