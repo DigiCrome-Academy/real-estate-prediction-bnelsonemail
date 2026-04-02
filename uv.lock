@@ -2078,12 +2078,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pdftotext"
-version = "3.0.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f0/99/b6c910344eb95f3dddf8e27cddcdebb51765174b0624632db4cd62d3f172/pdftotext-3.0.0.tar.gz", hash = "sha256:c3652b19154e145515a8bfa953fc6136338ed92337bdccbb53fe0d88013b1aaa", size = 113565, upload-time = "2024-12-06T23:16:31.22Z" }
-
-[[package]]
 name = "pexpect"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2401,6 +2395,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pypdf"
+version = "6.9.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/31/83/691bdb309306232362503083cb15777491045dd54f45393a317dc7d8082f/pypdf-6.9.2.tar.gz", hash = "sha256:7f850faf2b0d4ab936582c05da32c52214c2b089d61a316627b5bfb5b0dab46c", size = 5311837, upload-time = "2026-03-23T14:53:27.983Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a5/7e/c85f41243086a8fe5d1baeba527cb26a1918158a565932b41e0f7c0b32e9/pypdf-6.9.2-py3-none-any.whl", hash = "sha256:662cf29bcb419a36a1365232449624ab40b7c2d0cfc28e54f42eeecd1fd7e844", size = 333744, upload-time = "2026-03-23T14:53:26.573Z" },
+]
+
+[[package]]
 name = "pytest"
 version = "8.0.2"
 source = { registry = "https://pypi.org/simple" }
@@ -2679,8 +2685,8 @@ dev = [
     { name = "latex" },
     { name = "nbformat" },
     { name = "notebook" },
-    { name = "pdftotext" },
     { name = "pip" },
+    { name = "pypdf" },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "quarto" },
@@ -2700,8 +2706,8 @@ requires-dist = [
     { name = "notebook", marker = "extra == 'dev'", specifier = "==7.1.0" },
     { name = "numpy", specifier = ">=1.24.0" },
     { name = "pandas", specifier = ">=2.0.0" },
-    { name = "pdftotext", marker = "extra == 'dev'", specifier = ">=3.0.0" },
     { name = "pip", marker = "extra == 'dev'" },
+    { name = "pypdf", marker = "extra == 'dev'" },
     { name = "pytest", specifier = ">=7.4.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = "==8.0.2" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = "==4.1.0" },
