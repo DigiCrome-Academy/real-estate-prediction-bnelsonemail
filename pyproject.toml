@@ -33,7 +33,7 @@ dev = [
     "quarto>=0.1.0",
     "latex>=0.7.0",
     "beamer>=0.2.0",
-    "pdftotext>=3.0.0",
+    "pypdf==6.9.2",
     "pip",
 ]
 
