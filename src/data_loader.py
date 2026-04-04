@@ -165,12 +165,11 @@ def create_feature_engineering(df):
         >>> df_eng.shape[1] > df.shape[1]
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. Make a copy of df to avoid modifying the original
-    #   2. Create the three new features described above
-    #   3. Handle potential division by zero cases
-    raise NotImplementedError("Implement create_feature_engineering()")
+    df = df.copy()
+    df['rooms_per_household'] = df['AveRooms'] * df['AveOccup']
+    df['bedrooms_ratio'] = df['AveBedrms'] / df['AveRooms'].replace(0, float('nan'))
+    df['population_density'] = df['Population'] / df['AveOccup'].replace(0, float('nan'))
+    return df
 
 
 if __name__ == "__main__":
