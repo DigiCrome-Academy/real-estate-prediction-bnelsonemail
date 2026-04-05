@@ -1,0 +1,17 @@
+# REAL ESTATE PREDICTION ENGINE
+
+## Project Report
+
+---
+
+*Predicting and Reducing Customer Attrition Using Machine Learning*
+
+| Field                     | Details                                          |
+|---------------------------|--------------------------------------------------|
+| Student Name(s):          | Brice Nelson                                     |
+| Student Number(s):        | 6084980121                                       |
+| Program:                  | Post Graduate Program in Data Science & Gen AI   |
+| Module:                   | Internship Program                               |
+| Lecturer:                 | Desmond                                          |
+| Submission Date:          | XXXXXXXX 2026                                    |
+| Academic Year:            | 2026                                             |

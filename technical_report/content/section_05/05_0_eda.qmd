@@ -1,0 +1,5 @@
+# Section 5: Exploratory Data Analysis (EDA)
+Present visualizations and statistics to uncover patterns in the data.
+Every chart or table must be referenced in your text and discussed — do not just paste
+images without explanation. Use appropriate chart types for each variable.
+Suggested length: 600–900 words + figures.

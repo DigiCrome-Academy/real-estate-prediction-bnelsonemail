@@ -1,0 +1,5 @@
+# Section 6: Methodology and Model Development
+Explain your modelling approach in enough detail that it can be replicated.
+Justify your choice of algorithms with reference to the literature. Present your models
+systematically — at least THREE different algorithms should be implemented and compared.
+Suggested length: 900–1200 words.

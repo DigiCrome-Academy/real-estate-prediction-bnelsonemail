@@ -1,0 +1,2 @@
+# 6.5 Cross-Validation Strategy
+Explain your validation strategy (e.g., 5-fold or 10-fold cross-validation). Justify why this approach reduces overfitting and gives a reliable estimate of generalization performance.

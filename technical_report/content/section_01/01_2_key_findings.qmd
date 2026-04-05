@@ -1,0 +1,4 @@
+# 1.2 Key Findings
+= Key finding 1 — e.g., overall churn rate was X%
+- Key finding 2 — e.g., top predictor was contract type
+- Key finding 3 — e.g., best model achieved X% accuracy

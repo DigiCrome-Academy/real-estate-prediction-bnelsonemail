@@ -1,0 +1,2 @@
+# 5.4 Correlation Analysis
+Present a correlation heatmap of numerical features. Identify any multicollinearity issues (correlation > 0.80 between predictors) and explain how you will address them.

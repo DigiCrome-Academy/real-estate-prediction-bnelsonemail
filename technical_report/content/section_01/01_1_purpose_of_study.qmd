@@ -1,0 +1,5 @@
+# 1.1 Purpose of Study
+- Briefly state the business problem: why does project matter?
+- Identify the organization or sector (e.g., telecom, banking, SaaS, software, medical, housing, etc).
+- State the primary objective of this analysis.
+
