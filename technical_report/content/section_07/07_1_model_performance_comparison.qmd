@@ -1,0 +1,11 @@
+# Model Performance Comparison Table
+
+The following table may not reflect the models used.  This is a template, use whatever is necessary for the models used.
+
+| Model               | Accuracy | Precision | Recall | F1-Score | AUC-ROC |
+|--------------------|----------|-----------|--------|----------|---------|
+| Logistic Regression| [xx%]    | [xx%]     | [xx%]  | [xx%]    | [0.xx]  |
+| Decision Tree      | [xx%]    | [xx%]     | [xx%]  | [xx%]    | [0.xx]  |
+| Random Forest      | [xx%]    | [xx%]     | [xx%]  | [xx%]    | [0.xx]  |
+| XGBoost            | [xx%]    | [xx%]     | [xx%]  | [xx%]    | [0.xx]  |
+| **Best Model ✓**   | **[xx%]**| **[xx%]** | **[xx%]** | **[xx%]** | **[0.xx]** |
