@@ -1,0 +1,6 @@
+# 4.1 Dataset Overview
+Describe the source of your dataset (e.g., Kaggle Telco Churn dataset, IBM Watson dataset). Include:
+- Number of records (rows) and features (columns)
+- Target variable definition (how is the Target defined and encoded?)
+- Data types: numerical, categorical, binary
+- Any ethical or privacy considerations

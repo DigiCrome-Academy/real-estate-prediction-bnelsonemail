@@ -1,0 +1,5 @@
+# Feature Description Table
+
+| Feature Name | Data Type | Description     | Example Values     |
+| ------------ | ========= | --------------- | ------------------ |
+| Feature      | string, integer, float, etc | Description of Feature | 1234-ABCD |

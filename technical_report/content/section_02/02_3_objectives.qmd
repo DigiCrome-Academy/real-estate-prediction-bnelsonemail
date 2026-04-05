@@ -1,0 +1,6 @@
+# 2.3 Objectives
+State 3–5 clear, measurable objectives. Example:
+1.	To explore and describe the dataset using exploratory data analysis.
+2.	To identify features most strongly associated with the project study.
+3.	To build and compare predictive models for identifying at-risks.
+4.	To provide actionable recommendations.

@@ -1,0 +1,6 @@
+# 4.3 Data Quality Assessment
+Report findings from your initial data quality checks. Include:
+- Missing values: which features? How many? Percentage of total?
+- Duplicate records: how many found and removed?
+- Outliers: identified via IQR, Z-score, or boxplots?
+- Class imbalance (if it exists)
