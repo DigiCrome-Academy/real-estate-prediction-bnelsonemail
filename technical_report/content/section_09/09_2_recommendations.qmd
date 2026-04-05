@@ -1,0 +1,5 @@
+# 9.2 Business Recommendations
+Based on your findings, provide 3–5 specific, actionable recommendations for the business. For each, explain the rationale:
+1.	[Recommendation 1 — e.g., Target customers on month-to-month contracts with loyalty incentives in month 6–12 of tenure.]
+2.	[Recommendation 2 — e.g., Deploy the XGBoost model in the CRM system to flag at-risk customers weekly.]
+3.	[Recommendation 3 — e.g., Investigate root causes of churn among high-value customers with tenure < 12 months.]

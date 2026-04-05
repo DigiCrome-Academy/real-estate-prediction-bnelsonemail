@@ -1,0 +1,3 @@
+# 9.3 Future Work
+Suggest 2–3 directions for future research or improvement.
+Examples: more data, different algorithms, survival analysis, real-time prediction pipeline.
