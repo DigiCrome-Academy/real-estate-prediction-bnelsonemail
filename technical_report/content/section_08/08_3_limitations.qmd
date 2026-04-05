@@ -1,0 +1,7 @@
+# Limitations of this Study
+Be honest about limitations. Consider:
+- Dataset: is it representative? Is it current?
+- Model: could a more advanced model (e.g., deep learning) perform better?
+- Scope: does this generalize beyond one company or industry?
+- Ethical: are there fairness or bias concerns in using demographic features?
+
