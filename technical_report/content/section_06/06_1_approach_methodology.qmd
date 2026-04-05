@@ -1,0 +1,2 @@
+# 6.1 Research Approach and Methodology Overview
+Describe your overall research design. State whether this is a quantitative, predictive modelling study. Justify the choice of a supervised classification approach for the Target prediction.

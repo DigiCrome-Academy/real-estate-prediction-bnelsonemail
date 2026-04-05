@@ -1,0 +1,5 @@
+# 6.6 Tools and Libraries
+State the programming language (Python/R) and all libraries used:
+- Data manipulation: pandas, NumPy
+- Visualization: matplotlib, seaborn, plotly
+- Modelling: scikit-learn, XGBoost, imbalanced-learn

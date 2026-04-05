@@ -1,0 +1,4 @@
+# 5.1 Univariate Analysis
+Analyze each feature individually. For numerical features, report mean, median, standard deviation, and distribution shape. For categorical features, report frequency counts and proportions.
+Include: histograms or boxplots for numerical features; bar charts for categorical features
+

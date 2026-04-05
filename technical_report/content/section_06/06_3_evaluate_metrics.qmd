@@ -1,0 +1,6 @@
+# 6.3 Evaluate Metrics
+Justify your choice of evaluation metrics. For imbalanced churn data, accuracy alone is insufficient. You should report:
+- Accuracy — Overall correct predictions
+- Precision, Recall, F1-Score — Especially for the minority class (churners)
+- AUC-ROC — Discrimination ability across thresholds
+- Confusion Matrix — Breakdown of TP, TN, FP, FN

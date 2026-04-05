@@ -1,0 +1,6 @@
+# 6.2 Algorithm Selected
+For each algorithm, write a brief description, explain its strengths for this problem, and cite the relevant literature:
+1.	Logistic Regression — Baseline model; interpretable; suitable for binary classification.
+2.	Decision Tree / Random Forest — Handles non-linear relationships; feature importance.
+3.	Gradient Boosting (XGBoost / LightGBM) — High performance on tabular data; handles imbalance.
+•	[Optional: Support Vector Machine, K-Nearest Neighbors, Neural Network]
