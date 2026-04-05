@@ -1,0 +1,5 @@
+# Section 4: Data Description and Preprocessing
+Describe your dataset in detail. Explain where it came from, what it
+contains, and all steps you took to clean and prepare it. This section should be
+reproducible — another engineer should be able to repeat your preprocessing steps.
+Suggested length: 600–900 words. Include tables and code snippets where relevant.
