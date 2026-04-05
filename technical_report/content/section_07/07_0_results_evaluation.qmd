@@ -1,0 +1,4 @@
+# Results and Evaluation
+Present your model results objectively. Use tables and charts. Do NOT
+interpret or discuss results here — save that for Section 8 (Discussion).
+Suggested length: 600–900 words + tables.
