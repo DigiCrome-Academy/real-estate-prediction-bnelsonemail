@@ -20,7 +20,9 @@ dependencies = [
     "pytest>=7.4.0",
     "pytest-timeout>=2.2.0",
     "notebook>=7.0.0",
-    "ipykernel>=6.25.0"
+    "ipykernel>=6.25.0",
+    "pandas-stubs~=2.3.3",
+    "scipy-stubs<1.17.1",
 ]
 
 [project.optional-dependencies]
