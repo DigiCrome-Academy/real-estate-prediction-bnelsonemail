@@ -50,12 +50,24 @@ def find_optimal_k(X, k_range=range(2, 11), random_state=42):
         >>> results['best_k_silhouette'] >= 2
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. For each k in k_range, fit KMeans and record inertia_
-    #   2. Compute silhouette_score for each clustering
-    #   3. Find the k with the highest silhouette score
-    raise NotImplementedError("Implement find_optimal_k()")
+    inertias = []
+    silhouette_scores = []
+    k_list = list(k_range)
+
+    for k in k_list:
+        km = KMeans(n_clusters=k, random_state=random_state, n_init='auto')
+        labels = km.fit_predict(X)
+        inertias.append(km.inertia_)
+        silhouette_scores.append(silhouette_score(X, labels))
+
+    best_k_silhouette = k_list[int(np.argmax(silhouette_scores))]
+
+    return {
+        'inertias': inertias,
+        'silhouette_scores': silhouette_scores,
+        'k_range': k_list,
+        'best_k_silhouette': best_k_silhouette,
+    }
 
 
 def perform_kmeans(X, n_clusters, random_state=42):
@@ -85,8 +97,16 @@ def perform_kmeans(X, n_clusters, random_state=42):
         >>> result['silhouette'] > 0
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement perform_kmeans()")
+    model = KMeans(n_clusters=n_clusters, random_state=random_state, n_init='auto')
+    labels = model.fit_predict(X)
+
+    return {
+        'model': model,
+        'labels': labels,
+        'centroids': model.cluster_centers_,
+        'inertia': model.inertia_,
+        'silhouette': silhouette_score(X, labels),
+    }
 
 
 # =============================================================================
@@ -117,8 +137,15 @@ def perform_hierarchical_clustering(X, n_clusters, linkage_method='ward'):
         >>> len(np.unique(result['labels'])) == 3
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement perform_hierarchical_clustering()")
+    model = AgglomerativeClustering(n_clusters=n_clusters, linkage=linkage_method)
+    labels = model.fit_predict(X)
+
+    return {
+        'model': model,
+        'labels': labels,
+        'silhouette': silhouette_score(X, labels),
+        'n_clusters': n_clusters,
+    }
 
 
 def compute_linkage_matrix(X, method='ward'):
@@ -138,9 +165,7 @@ def compute_linkage_matrix(X, method='ward'):
         >>> Z.shape[1] == 4  # linkage matrix always has 4 columns
         True
     """
-    # TODO: Implement this function
-    # Hint: Use scipy.cluster.hierarchy.linkage
-    raise NotImplementedError("Implement compute_linkage_matrix()")
+    return linkage(X, method=method)
 
 
 # =============================================================================
@@ -174,12 +199,27 @@ def perform_dbscan(X, eps=0.5, min_samples=5):
         >>> result['n_noise'] >= 0
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. Fit DBSCAN on X
-    #   2. Count unique labels (excluding -1 for noise)
-    #   3. Only compute silhouette if there are >= 2 clusters
-    raise NotImplementedError("Implement perform_dbscan()")
+    model = DBSCAN(eps=eps, min_samples=min_samples)
+    labels = model.fit_predict(X)
+
+    unique_labels = set(labels)
+    n_clusters = len(unique_labels - {-1})
+    n_noise = int(np.sum(labels == -1))
+
+    if n_clusters >= 2:
+        # Silhouette requires at least 2 clusters and excludes noise points
+        mask = labels != -1
+        silhouette = silhouette_score(X[mask], labels[mask]) if mask.sum() > n_clusters else None
+    else:
+        silhouette = None
+
+    return {
+        'model': model,
+        'labels': labels,
+        'n_clusters': n_clusters,
+        'n_noise': n_noise,
+        'silhouette': silhouette,
+    }
 
 
 def tune_dbscan(X, eps_range=None, min_samples_range=None):
@@ -204,8 +244,24 @@ def tune_dbscan(X, eps_range=None, min_samples_range=None):
         >>> 'silhouette' in results.columns
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement tune_dbscan()")
+    if eps_range is None:
+        eps_range = [0.3, 0.5, 0.7, 1.0, 1.5]
+    if min_samples_range is None:
+        min_samples_range = [3, 5, 7, 10]
+
+    rows = []
+    for eps in eps_range:
+        for min_samples in min_samples_range:
+            result = perform_dbscan(X, eps=eps, min_samples=min_samples)
+            rows.append({
+                'eps': eps,
+                'min_samples': min_samples,
+                'n_clusters': result['n_clusters'],
+                'n_noise': result['n_noise'],
+                'silhouette': result['silhouette'],
+            })
+
+    return pd.DataFrame(rows, columns=['eps', 'min_samples', 'n_clusters', 'n_noise', 'silhouette'])
 
 
 # =============================================================================
@@ -240,12 +296,17 @@ def perform_pca(X, n_components=None):
         >>> result['cumulative_variance'][-1] <= 1.0
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. Fit PCA with n_components
-    #   2. Transform X
-    #   3. Return explained_variance_ratio_ and its cumulative sum
-    raise NotImplementedError("Implement perform_pca()")
+    model = PCA(n_components=n_components)
+    transformed = model.fit_transform(X)
+    evr = model.explained_variance_ratio_
+
+    return {
+        'model': model,
+        'transformed': transformed,
+        'explained_variance_ratio': evr,
+        'cumulative_variance': np.cumsum(evr),
+        'n_components': model.n_components_,
+    }
 
 
 def find_optimal_components(X, variance_threshold=0.95):
@@ -266,12 +327,13 @@ def find_optimal_components(X, variance_threshold=0.95):
         >>> 1 <= n <= 10
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. Fit PCA with all components
-    #   2. Compute cumulative variance
-    #   3. Find the first index where cumulative variance >= threshold
-    raise NotImplementedError("Implement find_optimal_components()")
+    pca = PCA(n_components=None)
+    pca.fit(X)
+    cumulative_variance = np.cumsum(pca.explained_variance_ratio_)
+    # np.searchsorted finds the first index where cumulative_variance >= threshold;
+    # add 1 to convert from 0-based index to component count.
+    n_components = int(np.searchsorted(cumulative_variance, variance_threshold)) + 1
+    return n_components
 
 
 def cluster_with_pca(X, n_clusters, n_components=2, random_state=42):
@@ -302,5 +364,15 @@ def cluster_with_pca(X, n_clusters, n_components=2, random_state=42):
         >>> len(np.unique(result['labels'])) == 3
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement cluster_with_pca()")
+    pca_result = perform_pca(X, n_components=n_components)
+    pca_data = pca_result['transformed']
+
+    kmeans_result = perform_kmeans(pca_data, n_clusters=n_clusters, random_state=random_state)
+
+    return {
+        'pca_model': pca_result['model'],
+        'kmeans_model': kmeans_result['model'],
+        'pca_data': pca_data,
+        'labels': kmeans_result['labels'],
+        'silhouette': kmeans_result['silhouette'],
+    }
