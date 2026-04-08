@@ -332,8 +332,8 @@ def find_optimal_components(X, variance_threshold=0.95):
     cumulative_variance = np.cumsum(pca.explained_variance_ratio_)
     # np.searchsorted finds the first index where cumulative_variance >= threshold;
     # add 1 to convert from 0-based index to component count.
-    n_components = int(np.searchsorted(cumulative_variance, variance_threshold)) + 1
-    return n_components
+    n_components = int(np.searchsorted(cumulative_variance, variance_threshold, side='left')) + 1
+    return min(n_components, X.shape[1])
 
 
 def cluster_with_pca(X, n_clusters, n_components=2, random_state=42):
