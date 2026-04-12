@@ -12,9 +12,33 @@ The California Housing dataset is built into scikit-learn and contains:
 
 import numpy as np
 import pandas as pd
+from pathlib import Path
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+# Readme asks us to download the data.  The function asks us to store as memory.  Therefore, download_data will
+# download and save the data to the data/raw folder and can be run from the cli.
+
+BASE_DIR = Path(__file__).resolve().parent  # sets current path (03_real_estate_prediction/src/)
+ROOT_DIR = BASE_DIR.parent  # sets the project root directory (03_real_estate_prediction/)
+
+def download_data():
+    """Download and save data to the local drive."""
+    data = fetch_california_housing(as_frame=True)
+    df = data.frame
+    # build data directory
+    DATA_DIR = ROOT_DIR / "data" / "raw"
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    file = DATA_DIR / 'housing.csv'
+    # save file to data directory
+    if file.is_file():
+        print("File already exists")
+    else:
+        df.to_csv(file, index=False)
+        print(f'Data has been saved to {file}')
+    return None
+
 
 
 def load_housing_data():
@@ -31,12 +55,15 @@ def load_housing_data():
         >>> 'MedHouseVal' in df.columns
         True
     """
-    # TODO: Implement this function
+    # NOTES: Implemented this function
     # Hints:
     #   1. Use fetch_california_housing(as_frame=True)
     #   2. The target variable should be named 'MedHouseVal'
     #   3. Return a single DataFrame with features AND target combined
-    raise NotImplementedError("Implement load_housing_data()")
+    data = fetch_california_housing(as_frame=True).frame
+    return data
+
+
 
 
 def preprocess_features(df, target_col='MedHouseVal'):
@@ -62,12 +89,28 @@ def preprocess_features(df, target_col='MedHouseVal'):
         >>> np.abs(X_scaled.mean(axis=0)).max() < 1e-10  # means ≈ 0
         True
     """
-    # TODO: Implement this function
+    # NOTES: Implement this function
     # Hints:
     #   1. Separate X (features) and y (target)
     #   2. Fit a StandardScaler on X
     #   3. Return the scaled X, y, feature names, and the scaler
-    raise NotImplementedError("Implement preprocess_features()")
+    # 1. Separate features and target
+    X = df.drop(columns=[target_col])
+    y = df[target_col]
+
+    # 2. Store feature names
+    feature_names = X.columns.tolist()
+
+    # 3. Initialize scaler
+    scaler = StandardScaler()
+
+    # 4. Fit and transform features
+    X_scaled = scaler.fit_transform(X)
+
+    # 5. Convert y to numpy array (optional but cleaner)
+    y = y.values
+
+    return X_scaled, y, feature_names, scaler
 
 
 def split_data(X, y, test_size=0.2, random_state=42):
@@ -92,8 +135,7 @@ def split_data(X, y, test_size=0.2, random_state=42):
         >>> len(X_test) == 20
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement split_data()")
+    return train_test_split(X, y, test_size=test_size, random_state=random_state)
 
 
 def create_feature_engineering(df):
@@ -123,12 +165,11 @@ def create_feature_engineering(df):
         >>> df_eng.shape[1] > df.shape[1]
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. Make a copy of df to avoid modifying the original
-    #   2. Create the three new features described above
-    #   3. Handle potential division by zero cases
-    raise NotImplementedError("Implement create_feature_engineering()")
+    df = df.copy()
+    df['rooms_per_household'] = df['AveRooms'] * df['AveOccup']
+    df['bedrooms_ratio'] = df['AveBedrms'] / df['AveRooms'].replace(0, float('nan'))
+    df['population_density'] = df['Population'] / df['AveOccup'].replace(0, float('nan'))
+    return df
 
 
 if __name__ == "__main__":

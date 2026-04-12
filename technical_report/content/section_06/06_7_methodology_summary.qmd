@@ -1,0 +1,30 @@
+# 6.7 Methodology Summary
+
+This section details the approach taken to build and evaluate our predictive model. It outlines key decisions made throughout the process, providing justification for subsequent modelling steps.
+
+*   **1. Overall Approach (Brief - 1-2 Sentences):** [Describe the overarching methodology – e.g., “We employed a supervised learning approach using a gradient boosting algorithm to predict [target variable].”]
+
+*   **2. Data Preprocessing & Feature Engineering:**
+    *   [ Briefly describe any data cleaning, transformation, or feature engineering steps undertaken. Be specific - e.g., "Missing values were imputed using the median.  Categorical features were one-hot encoded. We created a new feature 'InteractionTerm' by multiplying Features A and B."]
+
+*   **3. Algorithm Selection Rationale (Linked to 6.2):** [Expand on *why* you chose your primary algorithm(s). Refer back to the algorithm selection criteria outlined in Section 6.2.  E.g., "The Gradient Boosting Machine was selected due to its strong predictive performance and ability to handle non-linear relationships, as discussed in Section 6.2."]
+
+*   **4. Model Training & Hyperparameter Tuning (Linked to 6.4):** [Detail the training process. Include:
+    *   “We trained the model using [Number] folds of cross-validation.”
+    *   "Hyperparameters were tuned using [Method - e.g., Grid Search, Random Search] with a focus on optimizing for [Primary Metric – e.g., AUC].”
+    *   "The final hyperparameter values were: [List Key Hyperparameters and Values]" ]
+
+*   **5. Cross-Validation Strategy (Linked to 6.5):**  [Clearly state the cross-validation method used - e.g., "Stratified K-Fold Cross-Validation with k=5 was employed to ensure representative evaluation across all classes." Briefly explain *why* this strategy was chosen.]
+
+*   **6. Evaluation Metrics (Linked to 6.3):** [List the key metrics used to evaluate model performance and their rationale. E.g., "We primarily evaluated the model using AUC, Precision, Recall, F1-score, and RMSE, as these metrics best reflected our business objectives."]
+
+*   **7.  Software & Libraries (Linked to 6.6):** [List the specific tools and libraries used throughout the project – e.g., "Python 3.8, Scikit-learn, Pandas, NumPy, XGBoost."].
+
+---
+
+**Key Considerations & Notes:**
+
+*   **Linking is Crucial:**  Each bullet point should clearly reference a relevant section (e.g., 6.2, 6.4, 6.5) to maintain consistency and traceability.
+*   **Level of Detail:** Adjust the level of detail based on your audience and the complexity of your project.
+*   **Justification:**  Don't just *state* what you did; briefly explain *why* you made those decisions. This is vital for understanding the reasoning behind your model.
+

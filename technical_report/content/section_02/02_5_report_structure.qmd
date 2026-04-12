@@ -1,0 +1,2 @@
+# Report Structure
+Provide one paragraph describing the structure of the report (e.g., 'Section 3 reviews relevant literature on project area of study').

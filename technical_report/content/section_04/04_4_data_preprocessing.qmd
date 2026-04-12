@@ -1,0 +1,7 @@
+# 4.4 Data Preprocessing Steps
+Describe each preprocessing step taken, with justification:
+1.	Handling missing values (imputation strategy or removal)
+2.	Encoding categorical variables (Label Encoding / One-Hot Encoding)
+3.	Feature scaling / normalization (StandardScaler, MinMaxScaler)
+4.	Handling class imbalance (SMOTE, oversampling, class weights)
+5.	Train / test split rationale (e.g., 80/20 split, random seed)
