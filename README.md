@@ -5,7 +5,7 @@ A comprehensive regression-based pricing engine for real estate valuation, combi
 
 ## Project Structure
 
-```
+```plaintext
 real-estate-prediction-engine/
 ├── .github/
 │   └── workflows/
