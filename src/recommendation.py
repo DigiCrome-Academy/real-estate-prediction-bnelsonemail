@@ -40,12 +40,12 @@ def compute_property_similarity(X, metric='cosine'):
         >>> sim[0, 1] > sim[0, 2]  # first two are more similar
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   - For 'cosine': use cosine_similarity from sklearn
-    #   - For 'euclidean': use euclidean_distances, then convert to similarity
-    #     (e.g., 1 / (1 + distance))
-    #   - Ensure all values are between 0 and 1
+    # NOTE:  Implementation of function
+    #   Hints:
+    #       - For 'cosine': use cosine_similarity from sklearn
+    #       - For 'euclidean': use euclidean_distances, then convert to similarity
+    #         (e.g., 1 / (1 + distance))
+    #       - Ensure all values are between 0 and 1
     if metric == 'cosine':
         return cosine_similarity(X)
     elif metric == 'euclidean':
@@ -83,11 +83,11 @@ def content_based_recommend(property_index, similarity_matrix, n_recommendations
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Get similarity scores for the given property
-    #   2. Sort by descending similarity
-    #   3. Exclude the query property itself
-    #   4. Return top n_recommendations
+    #   Hints:
+    #     1. Get similarity scores for the given property
+    #     2. Sort by descending similarity
+    #     3. Exclude the query property itself
+    #     4. Return top n_recommendations
     raise NotImplementedError("Implement content_based_recommend()")
 
 
@@ -115,10 +115,10 @@ def knn_recommend(X, property_index, n_recommendations=5, metric='minkowski'):
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Fit NearestNeighbors with n_neighbors = n_recommendations + 1
-    #   2. Query for the property at property_index
-    #   3. Exclude the query property from results
+    #   Hints:
+    #     1. Fit NearestNeighbors with n_neighbors = n_recommendations + 1
+    #     2. Query for the property at property_index
+    #     3. Exclude the query property from results
     raise NotImplementedError("Implement knn_recommend()")
 
 
@@ -153,10 +153,10 @@ def create_user_property_matrix(n_users=100, n_properties=500, sparsity=0.95, ra
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Generate random ratings (1-5) for all entries
-    #   2. Create a mask where ~sparsity fraction of entries are kept
-    #   3. Set the rest to 0
+    #   Hints:
+    #     1. Generate random ratings (1-5) for all entries
+    #     2. Create a mask where ~sparsity fraction of entries are kept
+    #     3. Set the rest to 0
     raise NotImplementedError("Implement create_user_property_matrix()")
 
 
@@ -191,11 +191,11 @@ def user_based_collaborative_filter(user_property_matrix, user_index, n_recommen
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Compute cosine similarity between users
-    #   2. Find top-k similar users (e.g., top 10)
-    #   3. For unrated properties of target user, compute weighted average rating
-    #   4. Return top-n properties by predicted rating
+    #   Hints:
+    #     1. Compute cosine similarity between users
+    #     2. Find top-k similar users (e.g., top 10)
+    #     3. For unrated properties of target user, compute weighted average rating
+    #     4. Return top-n properties by predicted rating
     raise NotImplementedError("Implement user_based_collaborative_filter()")
 
 
@@ -274,12 +274,12 @@ def hybrid_recommend(
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Get content-based similarity scores for the reference property
-    #   2. Get collaborative filtering predicted ratings for the user
-    #   3. Normalize both score sets to [0, 1]
-    #   4. Combine: hybrid = content_weight * content + collaborative_weight * collab
-    #   5. Return top-n by hybrid_score
+    #   Hints:
+    #     1. Get content-based similarity scores for the reference property
+    #     2. Get collaborative filtering predicted ratings for the user
+    #     3. Normalize both score sets to [0, 1]
+    #     4. Combine: hybrid = content_weight * content + collaborative_weight * collab
+    #     5. Return top-n by hybrid_score
     raise NotImplementedError("Implement hybrid_recommend()")
 
 
