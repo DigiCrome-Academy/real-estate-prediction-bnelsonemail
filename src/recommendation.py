@@ -46,7 +46,12 @@ def compute_property_similarity(X, metric='cosine'):
     #   - For 'euclidean': use euclidean_distances, then convert to similarity
     #     (e.g., 1 / (1 + distance))
     #   - Ensure all values are between 0 and 1
-    raise NotImplementedError("Implement compute_property_similarity()")
+    if metric == 'cosine':
+        return cosine_similarity(X)
+    elif metric == 'euclidean':
+        return 1 / (1 + euclidean_distances(X))
+    else:
+        raise ValueError(f"Unknown metric '{metric}'. Use 'cosine' or 'euclidean'.")
 
 
 def content_based_recommend(property_index, similarity_matrix, n_recommendations=5):
