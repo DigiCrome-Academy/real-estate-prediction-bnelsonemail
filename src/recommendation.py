@@ -214,7 +214,32 @@ def user_based_collaborative_filter(user_property_matrix, user_index, n_recommen
     #     2. Find top-k similar users (e.g., top 10)
     #     3. For unrated properties of target user, compute weighted average rating
     #     4. Return top-n properties by predicted rating
-    raise NotImplementedError("Implement user_based_collaborative_filter()")
+    user_similarities = cosine_similarity(user_property_matrix)[user_index]
+
+    # Top-10 similar users, excluding the target user
+    similar_indices = np.argsort(user_similarities)[::-1]
+    similar_indices = [i for i in similar_indices if i != user_index][:10]
+    similar_sims = np.array([user_similarities[i] for i in similar_indices])
+
+    # Unrated properties for target user
+    unrated_mask = user_property_matrix[user_index] == 0
+    unrated_indices = np.where(unrated_mask)[0]
+
+    results = []
+    for prop in unrated_indices:
+        ratings = user_property_matrix[similar_indices, prop]
+        rated_mask = ratings > 0
+        if not rated_mask.any():
+            continue
+        weights = similar_sims[rated_mask]
+        weight_sum = weights.sum()
+        if weight_sum == 0:
+            continue
+        predicted = float(np.dot(weights, ratings[rated_mask]) / weight_sum)
+        results.append({'property_index': int(prop), 'predicted_rating': predicted})
+
+    results.sort(key=lambda x: x['predicted_rating'], reverse=True)
+    return results[:n_recommendations]
 
 
 def item_based_collaborative_filter(user_property_matrix, user_index, n_recommendations=5):
