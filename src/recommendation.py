@@ -341,7 +341,42 @@ def hybrid_recommend(
     #     3. Normalize both score sets to [0, 1]
     #     4. Combine: hybrid = content_weight * content + collaborative_weight * collab
     #     5. Return top-n by hybrid_score
-    raise NotImplementedError("Implement hybrid_recommend()")
+    n_properties = property_features.shape[0]
+
+    # --- Content-based scores (all properties) ---
+    sim_matrix = cosine_similarity(property_features)
+    raw_content = sim_matrix[property_index]          # shape: (n_properties,)
+
+    # --- Collaborative scores (all properties, default 0.0) ---
+    collab_recs = item_based_collaborative_filter(
+        user_property_matrix, user_index, n_recommendations=n_properties
+    )
+    raw_collab = np.zeros(n_properties)
+    for rec in collab_recs:
+        raw_collab[rec['property_index']] = rec['predicted_rating']
+
+    # --- Normalize both to [0, 1] ---
+    def _minmax(arr):
+        lo, hi = arr.min(), arr.max()
+        return arr if hi == lo else (arr - lo) / (hi - lo)
+
+    content_norm = _minmax(raw_content)
+    collab_norm  = _minmax(raw_collab)
+
+    hybrid = content_weight * content_norm + collaborative_weight * collab_norm
+
+    # Exclude the reference property itself
+    candidate_indices = [i for i in np.argsort(hybrid)[::-1] if i != property_index]
+
+    return [
+        {
+            'property_index':      int(i),
+            'content_score':       float(content_norm[i]),
+            'collaborative_score': float(collab_norm[i]),
+            'hybrid_score':        float(hybrid[i]),
+        }
+        for i in candidate_indices[:n_recommendations]
+    ]
 
 
 def evaluate_recommendations(recommendations, ground_truth_ratings, threshold=3.5):
