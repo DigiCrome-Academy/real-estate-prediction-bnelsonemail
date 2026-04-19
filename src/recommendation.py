@@ -270,7 +270,25 @@ def item_based_collaborative_filter(user_property_matrix, user_index, n_recommen
         True
     """
     # TODO: Implement this function
-    raise NotImplementedError("Implement item_based_collaborative_filter()")
+    # Item-item similarity matrix (n_properties x n_properties)
+    item_similarity = cosine_similarity(user_property_matrix.T)
+
+    user_ratings = user_property_matrix[user_index]
+    rated_mask = user_ratings > 0
+    unrated_indices = np.where(~rated_mask)[0]
+
+    results = []
+    for prop in unrated_indices:
+        sims = item_similarity[prop][rated_mask]
+        ratings = user_ratings[rated_mask].astype(float)
+        weight_sum = np.abs(sims).sum()
+        if weight_sum == 0:
+            continue
+        predicted = float(np.dot(sims, ratings) / weight_sum)
+        results.append({'property_index': int(prop), 'predicted_rating': predicted})
+
+    results.sort(key=lambda x: x['predicted_rating'], reverse=True)
+    return results[:n_recommendations]
 
 
 # =============================================================================
