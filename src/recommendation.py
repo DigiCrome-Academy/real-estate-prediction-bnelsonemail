@@ -88,7 +88,13 @@ def content_based_recommend(property_index, similarity_matrix, n_recommendations
     #     2. Sort by descending similarity
     #     3. Exclude the query property itself
     #     4. Return top n_recommendations
-    raise NotImplementedError("Implement content_based_recommend()")
+    scores = similarity_matrix[property_index]
+    indices = np.argsort(scores)[::-1]
+    indices = [i for i in indices if i != property_index]
+    return [
+        {'property_index': int(i), 'similarity_score': float(scores[i])}
+        for i in indices[:n_recommendations]
+    ]
 
 
 def knn_recommend(X, property_index, n_recommendations=5, metric='minkowski'):
