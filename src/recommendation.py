@@ -407,4 +407,15 @@ def evaluate_recommendations(recommendations, ground_truth_ratings, threshold=3.
         0.6666666666666666
     """
     # TODO: Implement this function
-    raise NotImplementedError("Implement evaluate_recommendations()")
+    relevant = {idx for idx, rating in ground_truth_ratings.items() if rating >= threshold}
+    recommended = {r['property_index'] for r in recommendations}
+    n_relevant_recommended = len(recommended & relevant)
+    n_recommended = len(recommended)
+    n_relevant_total = len(relevant)
+    return {
+        'precision': n_relevant_recommended / n_recommended if n_recommended else 0.0,
+        'recall': n_relevant_recommended / n_relevant_total if n_relevant_total else 0.0,
+        'n_relevant_recommended': n_relevant_recommended,
+        'n_recommended': n_recommended,
+        'n_relevant_total': n_relevant_total,
+    }
