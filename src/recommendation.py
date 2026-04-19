@@ -125,7 +125,15 @@ def knn_recommend(X, property_index, n_recommendations=5, metric='minkowski'):
     #     1. Fit NearestNeighbors with n_neighbors = n_recommendations + 1
     #     2. Query for the property at property_index
     #     3. Exclude the query property from results
-    raise NotImplementedError("Implement knn_recommend()")
+    nn = NearestNeighbors(n_neighbors=n_recommendations + 1, metric=metric)
+    nn.fit(X)
+    distances, indices = nn.kneighbors(X[[property_index]])
+    distances, indices = distances[0], indices[0]
+    return [
+        {'property_index': int(idx), 'distance': float(dist)}
+        for idx, dist in zip(indices, distances)
+        if idx != property_index
+    ][:n_recommendations]
 
 
 # =============================================================================
