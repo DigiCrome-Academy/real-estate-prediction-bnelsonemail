@@ -171,7 +171,11 @@ def create_user_property_matrix(n_users=100, n_properties=500, sparsity=0.95, ra
     #     1. Generate random ratings (1-5) for all entries
     #     2. Create a mask where ~sparsity fraction of entries are kept
     #     3. Set the rest to 0
-    raise NotImplementedError("Implement create_user_property_matrix()")
+    rng = np.random.default_rng(random_state)
+    ratings = rng.integers(1, 6, size=(n_users, n_properties))
+    mask = rng.random(size=(n_users, n_properties)) < sparsity
+    ratings[mask] = 0
+    return ratings
 
 
 def user_based_collaborative_filter(user_property_matrix, user_index, n_recommendations=5):
