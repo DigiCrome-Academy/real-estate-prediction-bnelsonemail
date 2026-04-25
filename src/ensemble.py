@@ -141,13 +141,17 @@ def build_stacking_ensemble(X_train, y_train, base_models=None, meta_model=None)
         >>> hasattr(ensemble, 'predict')
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. If base_models is None, create defaults
-    #   2. If meta_model is None, use LinearRegression()
-    #   3. Create StackingRegressor(estimators=base_models, final_estimator=meta_model, cv=5)
-    #   4. Fit on training data
-    raise NotImplementedError("Implement build_stacking_ensemble()")
+    if base_models is None:
+        base_models = [
+            ('ridge', Ridge(alpha=1.0)),
+            ('rf', RandomForestRegressor(n_estimators=100, random_state=42)),
+            ('gb', GradientBoostingRegressor(n_estimators=100, random_state=42)),
+        ]
+    if meta_model is None:
+        meta_model = LinearRegression()
+    ensemble = StackingRegressor(estimators=base_models, final_estimator=meta_model, cv=5)
+    ensemble.fit(X_train, y_train)
+    return ensemble
 
 
 def evaluate_stacking_vs_voting(X_train, y_train, X_test, y_test):
@@ -171,8 +175,19 @@ def evaluate_stacking_vs_voting(X_train, y_train, X_test, y_test):
         >>> 'VotingEnsemble' in df['model'].values
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement evaluate_stacking_vs_voting()")
+    df = evaluate_voting_vs_individual(X_train, y_train, X_test, y_test)
+
+    ensemble = build_stacking_ensemble(X_train, y_train)
+    preds = ensemble.predict(X_test)
+    mse = mean_squared_error(y_test, preds)
+    stacking_row = pd.DataFrame([{
+        'model': 'StackingEnsemble',
+        'mse': mse,
+        'rmse': np.sqrt(mse),
+        'r2': r2_score(y_test, preds),
+    }])
+
+    return pd.concat([df, stacking_row], ignore_index=True)
 
 
 # =============================================================================
