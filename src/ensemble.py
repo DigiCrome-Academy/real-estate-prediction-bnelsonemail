@@ -55,12 +55,15 @@ def build_voting_ensemble(X_train, y_train, models=None):
         >>> len(preds) == 5
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   1. If models is None, create the default list of estimators
-    #   2. Create a VotingRegressor with the estimators
-    #   3. Fit on the training data
-    raise NotImplementedError("Implement build_voting_ensemble()")
+    if models is None:
+        models = [
+            ('ridge', Ridge(alpha=1.0)),
+            ('rf', RandomForestRegressor(n_estimators=100, random_state=42)),
+            ('gb', GradientBoostingRegressor(n_estimators=100, random_state=42)),
+        ]
+    ensemble = VotingRegressor(estimators=models)
+    ensemble.fit(X_train, y_train)
+    return ensemble
 
 
 def evaluate_voting_vs_individual(X_train, y_train, X_test, y_test, models=None):
