@@ -19,7 +19,7 @@ import os
 # Add project root to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from src.data_loader import load_housing_data, preprocess_features, split_data
+from src.data_loader import load_housing_data, preprocess_features, split_data, create_feature_engineering
 from src.ensemble import load_model
 from src.recommendation import (
     compute_property_similarity,
@@ -52,9 +52,10 @@ page = st.sidebar.selectbox(
 @st.cache_data
 def get_data():
     df = load_housing_data()
-    X_scaled, y, feature_names, scaler = preprocess_features(df)
+    df_eng = create_feature_engineering(df)
+    X_scaled, y, feature_names, scaler = preprocess_features(df_eng)
     X_train, X_test, y_train, y_test = split_data(X_scaled, y)
-    return df, X_scaled, y, feature_names, scaler, X_train, X_test, y_train, y_test
+    return df_eng, X_scaled, y, feature_names, scaler, X_train, X_test, y_train, y_test
 
 
 @st.cache_resource
@@ -141,8 +142,16 @@ if page == "Price Prediction":
         )
 
     if st.button("Predict Price", type="primary"):
-        raw_input = np.array([[med_inc, house_age, ave_rooms, ave_bedrms,
-                               population, ave_occup, latitude, longitude]])
+        # Compute engineered features (must match create_feature_engineering)
+        rooms_per_household = ave_rooms * ave_occup
+        bedrooms_ratio      = ave_bedrms / ave_rooms if ave_rooms != 0 else 0.0
+        population_density  = population / ave_occup if ave_occup != 0 else 0.0
+
+        raw_input = np.array([[
+            med_inc, house_age, ave_rooms, ave_bedrms,
+            population, ave_occup, latitude, longitude,
+            rooms_per_household, bedrooms_ratio, population_density,
+        ]])
         scaled_input = scaler.transform(raw_input)
         prediction = model.predict(scaled_input)[0]
         dollar_value = prediction * 100_000
