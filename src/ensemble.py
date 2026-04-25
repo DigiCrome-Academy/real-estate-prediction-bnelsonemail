@@ -213,8 +213,8 @@ def save_model(model, filepath):
         >>> os.path.exists(path)
         True
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement save_model()")
+    joblib.dump(model, filepath)
+    return filepath
 
 
 def load_model(filepath):
@@ -236,5 +236,4 @@ def load_model(filepath):
         >>> loaded.predict([[4]])
         array([4.])
     """
-    # TODO: Implement this function
-    raise NotImplementedError("Implement load_model()")
+    return joblib.load(filepath)
