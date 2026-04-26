@@ -40,13 +40,18 @@ def compute_property_similarity(X, metric='cosine'):
         >>> sim[0, 1] > sim[0, 2]  # first two are more similar
         True
     """
-    # TODO: Implement this function
-    # Hints:
-    #   - For 'cosine': use cosine_similarity from sklearn
-    #   - For 'euclidean': use euclidean_distances, then convert to similarity
-    #     (e.g., 1 / (1 + distance))
-    #   - Ensure all values are between 0 and 1
-    raise NotImplementedError("Implement compute_property_similarity()")
+    # NOTE:  Implementation of function
+    #   Hints:
+    #       - For 'cosine': use cosine_similarity from sklearn
+    #       - For 'euclidean': use euclidean_distances, then convert to similarity
+    #         (e.g., 1 / (1 + distance))
+    #       - Ensure all values are between 0 and 1
+    if metric == 'cosine':
+        return cosine_similarity(X)
+    elif metric == 'euclidean':
+        return 1 / (1 + euclidean_distances(X))
+    else:
+        raise ValueError(f"Unknown metric '{metric}'. Use 'cosine' or 'euclidean'.")
 
 
 def content_based_recommend(property_index, similarity_matrix, n_recommendations=5):
@@ -78,12 +83,18 @@ def content_based_recommend(property_index, similarity_matrix, n_recommendations
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Get similarity scores for the given property
-    #   2. Sort by descending similarity
-    #   3. Exclude the query property itself
-    #   4. Return top n_recommendations
-    raise NotImplementedError("Implement content_based_recommend()")
+    #   Hints:
+    #     1. Get similarity scores for the given property
+    #     2. Sort by descending similarity
+    #     3. Exclude the query property itself
+    #     4. Return top n_recommendations
+    scores = similarity_matrix[property_index]
+    indices = np.argsort(scores)[::-1]
+    indices = [i for i in indices if i != property_index]
+    return [
+        {'property_index': int(i), 'similarity_score': float(scores[i])}
+        for i in indices[:n_recommendations]
+    ]
 
 
 def knn_recommend(X, property_index, n_recommendations=5, metric='minkowski'):
@@ -110,11 +121,19 @@ def knn_recommend(X, property_index, n_recommendations=5, metric='minkowski'):
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Fit NearestNeighbors with n_neighbors = n_recommendations + 1
-    #   2. Query for the property at property_index
-    #   3. Exclude the query property from results
-    raise NotImplementedError("Implement knn_recommend()")
+    #   Hints:
+    #     1. Fit NearestNeighbors with n_neighbors = n_recommendations + 1
+    #     2. Query for the property at property_index
+    #     3. Exclude the query property from results
+    nn = NearestNeighbors(n_neighbors=n_recommendations + 1, metric=metric)
+    nn.fit(X)
+    distances, indices = nn.kneighbors(X[[property_index]])
+    distances, indices = distances[0], indices[0]
+    return [
+        {'property_index': int(idx), 'distance': float(dist)}
+        for idx, dist in zip(indices, distances)
+        if idx != property_index
+    ][:n_recommendations]
 
 
 # =============================================================================
@@ -148,11 +167,15 @@ def create_user_property_matrix(n_users=100, n_properties=500, sparsity=0.95, ra
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Generate random ratings (1-5) for all entries
-    #   2. Create a mask where ~sparsity fraction of entries are kept
-    #   3. Set the rest to 0
-    raise NotImplementedError("Implement create_user_property_matrix()")
+    #   Hints:
+    #     1. Generate random ratings (1-5) for all entries
+    #     2. Create a mask where ~sparsity fraction of entries are kept
+    #     3. Set the rest to 0
+    rng = np.random.default_rng(random_state)
+    ratings = rng.integers(1, 6, size=(n_users, n_properties))
+    mask = rng.random(size=(n_users, n_properties)) < sparsity
+    ratings[mask] = 0
+    return ratings
 
 
 def user_based_collaborative_filter(user_property_matrix, user_index, n_recommendations=5):
@@ -186,12 +209,37 @@ def user_based_collaborative_filter(user_property_matrix, user_index, n_recommen
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Compute cosine similarity between users
-    #   2. Find top-k similar users (e.g., top 10)
-    #   3. For unrated properties of target user, compute weighted average rating
-    #   4. Return top-n properties by predicted rating
-    raise NotImplementedError("Implement user_based_collaborative_filter()")
+    #   Hints:
+    #     1. Compute cosine similarity between users
+    #     2. Find top-k similar users (e.g., top 10)
+    #     3. For unrated properties of target user, compute weighted average rating
+    #     4. Return top-n properties by predicted rating
+    user_similarities = cosine_similarity(user_property_matrix)[user_index]
+
+    # Top-10 similar users, excluding the target user
+    similar_indices = np.argsort(user_similarities)[::-1]
+    similar_indices = [i for i in similar_indices if i != user_index][:10]
+    similar_sims = np.array([user_similarities[i] for i in similar_indices])
+
+    # Unrated properties for target user
+    unrated_mask = user_property_matrix[user_index] == 0
+    unrated_indices = np.where(unrated_mask)[0]
+
+    results = []
+    for prop in unrated_indices:
+        ratings = user_property_matrix[similar_indices, prop]
+        rated_mask = ratings > 0
+        if not rated_mask.any():
+            continue
+        weights = similar_sims[rated_mask]
+        weight_sum = weights.sum()
+        if weight_sum == 0:
+            continue
+        predicted = float(np.dot(weights, ratings[rated_mask]) / weight_sum)
+        results.append({'property_index': int(prop), 'predicted_rating': predicted})
+
+    results.sort(key=lambda x: x['predicted_rating'], reverse=True)
+    return results[:n_recommendations]
 
 
 def item_based_collaborative_filter(user_property_matrix, user_index, n_recommendations=5):
@@ -222,7 +270,25 @@ def item_based_collaborative_filter(user_property_matrix, user_index, n_recommen
         True
     """
     # TODO: Implement this function
-    raise NotImplementedError("Implement item_based_collaborative_filter()")
+    # Item-item similarity matrix (n_properties x n_properties)
+    item_similarity = cosine_similarity(user_property_matrix.T)
+
+    user_ratings = user_property_matrix[user_index]
+    rated_mask = user_ratings > 0
+    unrated_indices = np.where(~rated_mask)[0]
+
+    results = []
+    for prop in unrated_indices:
+        sims = item_similarity[prop][rated_mask]
+        ratings = user_ratings[rated_mask].astype(float)
+        weight_sum = np.abs(sims).sum()
+        if weight_sum == 0:
+            continue
+        predicted = float(np.dot(sims, ratings) / weight_sum)
+        results.append({'property_index': int(prop), 'predicted_rating': predicted})
+
+    results.sort(key=lambda x: x['predicted_rating'], reverse=True)
+    return results[:n_recommendations]
 
 
 # =============================================================================
@@ -269,13 +335,48 @@ def hybrid_recommend(
         True
     """
     # TODO: Implement this function
-    # Hints:
-    #   1. Get content-based similarity scores for the reference property
-    #   2. Get collaborative filtering predicted ratings for the user
-    #   3. Normalize both score sets to [0, 1]
-    #   4. Combine: hybrid = content_weight * content + collaborative_weight * collab
-    #   5. Return top-n by hybrid_score
-    raise NotImplementedError("Implement hybrid_recommend()")
+    #   Hints:
+    #     1. Get content-based similarity scores for the reference property
+    #     2. Get collaborative filtering predicted ratings for the user
+    #     3. Normalize both score sets to [0, 1]
+    #     4. Combine: hybrid = content_weight * content + collaborative_weight * collab
+    #     5. Return top-n by hybrid_score
+    n_properties = property_features.shape[0]
+
+    # --- Content-based scores (all properties) ---
+    sim_matrix = cosine_similarity(property_features)
+    raw_content = sim_matrix[property_index]          # shape: (n_properties,)
+
+    # --- Collaborative scores (all properties, default 0.0) ---
+    collab_recs = item_based_collaborative_filter(
+        user_property_matrix, user_index, n_recommendations=n_properties
+    )
+    raw_collab = np.zeros(n_properties)
+    for rec in collab_recs:
+        raw_collab[rec['property_index']] = rec['predicted_rating']
+
+    # --- Normalize both to [0, 1] ---
+    def _minmax(arr):
+        lo, hi = arr.min(), arr.max()
+        return arr if hi == lo else (arr - lo) / (hi - lo)
+
+    content_norm = _minmax(raw_content)
+    collab_norm  = _minmax(raw_collab)
+
+    hybrid = content_weight * content_norm + collaborative_weight * collab_norm
+
+    # Exclude the reference property itself
+    candidate_indices = [i for i in np.argsort(hybrid)[::-1] if i != property_index]
+
+    return [
+        {
+            'property_index':      int(i),
+            'content_score':       float(content_norm[i]),
+            'collaborative_score': float(collab_norm[i]),
+            'hybrid_score':        float(hybrid[i]),
+        }
+        for i in candidate_indices[:n_recommendations]
+    ]
 
 
 def evaluate_recommendations(recommendations, ground_truth_ratings, threshold=3.5):
@@ -306,4 +407,15 @@ def evaluate_recommendations(recommendations, ground_truth_ratings, threshold=3.
         0.6666666666666666
     """
     # TODO: Implement this function
-    raise NotImplementedError("Implement evaluate_recommendations()")
+    relevant = {idx for idx, rating in ground_truth_ratings.items() if rating >= threshold}
+    recommended = {r['property_index'] for r in recommendations}
+    n_relevant_recommended = len(recommended & relevant)
+    n_recommended = len(recommended)
+    n_relevant_total = len(relevant)
+    return {
+        'precision': n_relevant_recommended / n_recommended if n_recommended else 0.0,
+        'recall': n_relevant_recommended / n_relevant_total if n_relevant_total else 0.0,
+        'n_relevant_recommended': n_relevant_recommended,
+        'n_recommended': n_recommended,
+        'n_relevant_total': n_relevant_total,
+    }

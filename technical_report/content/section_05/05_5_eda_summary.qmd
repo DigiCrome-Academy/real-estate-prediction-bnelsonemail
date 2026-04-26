@@ -1,0 +1,2 @@
+# 5.5 EDA Summary and Key Insights
+Summarize your main findings from EDA in 4–6 bullet points. These should directly inform your modelling decisions in Section 6.

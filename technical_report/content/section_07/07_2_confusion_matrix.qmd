@@ -1,0 +1,2 @@
+# 7.2 Confusion Matrix
+Present confusion matrices for each model. Highlight the number of false negatives (targets predicted as non-targets) — these are the most costly prediction errors.

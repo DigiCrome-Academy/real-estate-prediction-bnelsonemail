@@ -1,0 +1,4 @@
+# Section 2: Introduction
+Set the scene for your report. Explain the business context, define the project, and state clearly what your report aims to achieve. Use citations where
+appropriate. End with a paragraph outlining the structure of the rest of the report.
+Suggested length: 400–600 words.

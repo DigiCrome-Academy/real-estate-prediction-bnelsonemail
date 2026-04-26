@@ -1,0 +1,2 @@
+# 3.3 Machine Learning Approaches
+Review studies that have applied ML to prediction of project study. Discuss the models used, datasets, performance metrics, and their findings. Compare approaches critically.

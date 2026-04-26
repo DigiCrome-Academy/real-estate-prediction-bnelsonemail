@@ -1,0 +1,2 @@
+# 6.4 Hyperparameter Tuning
+Describe how you optimized your models. Did you use Grid Search, Random Search, or Bayesian Optimization? Which hyperparameters were tuned? Report final values selected.

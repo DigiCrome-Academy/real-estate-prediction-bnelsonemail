@@ -1,0 +1,6 @@
+# Section 1: Executive Summary
+
+Write this section LAST, after completing the full report.
+Provide a concise standalone summary (200–300 words) that covers: the problem, dataset,
+methods used, key findings, and your main recommendation. No citations are needed here.
+A business manager should be able to read this and understand your entire project.

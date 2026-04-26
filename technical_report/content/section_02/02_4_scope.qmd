@@ -1,0 +1,2 @@
+# 2.4 Scope and Limitations
+Briefly state what your project covers and any known limitations at this stage (e.g., dataset time period, geographic scope).
