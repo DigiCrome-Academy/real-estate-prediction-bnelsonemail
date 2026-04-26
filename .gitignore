@@ -2,9 +2,7 @@
 data/*.csv
 data/*.zip
 
-# Model files
-models/*.pkl
-models/*.joblib
+
 
 # Python
 __pycache__/
