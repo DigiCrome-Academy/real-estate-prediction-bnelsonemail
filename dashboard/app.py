@@ -13,8 +13,12 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import glob as _glob
 import sys
 import os
+import tempfile
+
+import gdown
 
 # Add project root to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -58,19 +62,36 @@ def get_data():
     return df_eng, X_scaled, y, feature_names, scaler, X_train, X_test, y_train, y_test
 
 
-@st.cache_resource
-def get_model(path):
-    return load_model(path)
+GDRIVE_FOLDER_ID = "138lqlk0VaW7aNQJANoZyhG-nHm9oXfPh"
+_MODEL_CACHE_DIR = os.path.join(tempfile.gettempdir(), "re_prediction_models")
+
+
+@st.cache_resource(show_spinner="Downloading models from Google Drive...")
+def get_models():
+    os.makedirs(_MODEL_CACHE_DIR, exist_ok=True)
+    voting_path   = os.path.join(_MODEL_CACHE_DIR, "voting_ensemble.joblib")
+    stacking_path = os.path.join(_MODEL_CACHE_DIR, "stacking_ensemble.joblib")
+
+    if not (os.path.exists(voting_path) and os.path.exists(stacking_path)):
+        gdown.download_folder(
+            id=GDRIVE_FOLDER_ID,
+            output=_MODEL_CACHE_DIR,
+            quiet=True,
+            use_cookies=False,
+        )
+        # gdown may nest files in a subfolder — flatten to _MODEL_CACHE_DIR
+        for src in _glob.glob(os.path.join(_MODEL_CACHE_DIR, "**", "*.joblib"), recursive=True):
+            dst = os.path.join(_MODEL_CACHE_DIR, os.path.basename(src))
+            if src != dst:
+                os.replace(src, dst)
+
+    voting   = load_model(voting_path)   if os.path.exists(voting_path)   else None
+    stacking = load_model(stacking_path) if os.path.exists(stacking_path) else None
+    return voting, stacking
 
 
 df, X_scaled, y, feature_names, scaler, X_train, X_test, y_train, y_test = get_data()
-
-MODEL_DIR = os.path.join(os.path.dirname(__file__), '..', 'models')
-stacking_path = os.path.join(MODEL_DIR, 'stacking_ensemble.joblib')
-voting_path   = os.path.join(MODEL_DIR, 'voting_ensemble.joblib')
-
-stacking_model = get_model(stacking_path) if os.path.exists(stacking_path) else None
-voting_model   = get_model(voting_path)   if os.path.exists(voting_path)   else None
+voting_model, stacking_model = get_models()
 
 # =============================================================================
 # Page: Price Prediction
@@ -88,7 +109,7 @@ if page == "Price Prediction":
         available["Voting Ensemble"] = voting_model
 
     if not available:
-        st.error("No trained models found in the models/ directory.")
+        st.error("No trained models could be loaded. Check the Google Drive folder permissions and try again.")
         st.stop()
 
     model_name = st.sidebar.selectbox("Model", list(available.keys()))
