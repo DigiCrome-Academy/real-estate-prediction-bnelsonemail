@@ -2,8 +2,7 @@
 data/*.csv
 data/*.zip
 
-# Model files
-models/*.pkl
+# model files
 models/*.joblib
 
 # Python
